@@ -687,6 +687,8 @@ int main() {
 
 */
 
+/*
+
 // s15
 // #include "temp_vector.h"
 
@@ -704,11 +706,127 @@ int main() {
     s.push(3);
 
     std::cout << s.is_empty() << std::endl;
-    
+
     for (size_t i = 0; i < 3; i++)
     std::cout << s.pop() << " ";
     std::cout << std::endl;
-    
+
     std::cout << s.is_empty() << std::endl;
     return 0;
+}
+
+*/
+
+/*
+
+// s16
+
+// #include "stack.h"
+#include <vector>
+// long find_minimum(const long* array, size_t size){
+//     long min { array[0] };
+
+//     for (size_t i {1}; i < size;i++)
+//         if(array[i] < min)
+//             min = array[i];
+
+//     return min;
+// }
+// template <typename T> T find_minimum(const std::vector<T> &array) {
+//     T min { array[0] };
+
+//     for (size_t i { 1 }; i < array.size(); i++)
+//         if (array[i] < min)
+//             min = array[i];
+
+//     return min;
+// }
+template <typename T>
+T find_optimimum(const std::vector<T> &array, bool (*comp)(const T &a, const T &b)) {
+    T opt { array[0] };
+
+    for (size_t i { 1 }; i < array.size(); i++)
+        if (comp(array[i], opt))
+            opt = array[i];
+
+    return opt;
+}
+
+bool smaller(const long &a, const long &b) {
+    return a < b;
+}
+bool larger(const long &a, const long &b) {
+    return a > b;
+}
+
+int main() {
+    // Stack<int> s;
+
+    // s.push(1);
+    // s.push(2);
+    // s.push(3);
+    // s.push(4);
+    // s.push(5);
+
+    // Stack<int> s2 { s };
+    // for (size_t i = 0; i < 5; i++)
+    //     std::cout << s2.pop() << " ";
+    // std::cout << std::endl;
+
+    // long arr[] { 1, 2, 3, 4, 5, 6 };
+    std::vector<long> v { 1, 2, 3, 4, 5, 6 };
+    // std::cout << find_minimum(v) << std::endl;
+    std::cout << find_optimimum(v, smaller) << std::endl;
+    std::cout << find_optimimum(v, larger) << std::endl;
+
+    return 0;
+}
+
+*/
+
+/*
+
+// s17
+
+#include "util.h"
+#include <algorithm>
+#include <vector>
+
+int main() {
+
+    std::vector<long> v { 1, 2, 3, 4, 5, 6 };
+    // std::cout << find_optimum(v, smaller) << std::endl;
+    // std::cout << find_optimum(v, smaller<long>) << std::endl;
+    // std::cout << find_optimum(v, smaller<>) << std::endl;
+    // std::cout << find_optimum(v, larger) << std::endl;
+    // std::cout << *find_optimum(v, smaller) << std::endl;
+    // std::cout << *find_optimum(v, smaller<long>) << std::endl;
+    // std::cout << *find_optimum(v, smaller<>) << std::endl;
+    // std::cout << *find_optimum(v, larger) << std::endl;
+    // Less less {};
+    // std::cout << *find_optimum(v, less) << std::endl;
+    // Less<long> less {};
+    // std::cout << *find_optimum(v, less) << std::endl;
+    // Nearer nearer { 4 };
+    // std::cout << *find_optimum(v, nearer) << std::endl;
+    // std::cout << *find_optimum(v, larger) << std::endl;
+    // std::cout << *find_optimum(v, smaller<long>) << std::endl;
+    // std::cout << *find_optimum(v, Less<long> {}) << std::endl;
+    // std::cout << *find_optimum(v, std::less<long> {}) << std::endl;
+    // std::cout << *find_optimum(v, std::less<> {}) << std::endl;
+    // auto less { [](const long &a, const long &b) { return a < b; } };
+    auto less { []<typename T>(const T &a, const T &b) { return a < b; } };
+    std::cout << *find_optimum(v, less) << std::endl;
+
+    return 0;
+}
+*/
+
+
+//s18
+
+#include "util.h"
+
+int main() {
+    
 }

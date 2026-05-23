@@ -8,7 +8,7 @@ TARGET = class_app
 $(TARGET): $(OBJECTS)
 	$(CXX) $(LXXFLAGS) $(OBJECTS) -o $(TARGET)
 
-class_app.o: class.cpp box.h vector.h temp_vector.h vector.hpp stack.h stack.hpp #vector2d.h
+class_app.o: class.cpp box.h vector.h temp_vector.h vector.hpp stack.h stack.hpp util.h #vector2d.h
 	$(CXX) $(CXXFLAGS) class.cpp -o class_app.o
 
 box.o: box.cpp
