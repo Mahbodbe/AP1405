@@ -822,11 +822,67 @@ int main() {
 }
 */
 
-
-//s18
+// s18
 
 #include "util.h"
+#include <algorithm>
+#include <deque>
+#include <functional>
+#include <queue>
+#include <stack>
+#include <vector>
 
 int main() {
-    
+    std::vector<long> v { 1, 2, 3, 4, 5, 6 };
+    double X { 3.2 };
+
+    auto greater { [](const auto &a, const auto &b) { return a > b; } };
+    // std::cout << *find_optimum(v, greater) << std::endl;
+    auto less { []<typename T>(const T &a, const T &b) { return a < b; } };
+
+    auto nearer { [&X](const auto &a, const auto &b) {
+        return std::abs(a - X) < std::abs(b - X);
+    } };
+
+    // std::cout << *find_optimum(v, nearer) << std::endl;
+
+    std::vector<std::function<bool(long, long)>> funcs;
+
+    funcs.push_back(larger);
+    funcs.push_back(smaller<long>);
+    funcs.push_back(Less<long> {});
+    funcs.push_back(Nearer<long> { X });
+    funcs.push_back(std::less<> {});
+    funcs.push_back(less);
+    funcs.push_back(greater);
+    funcs.push_back(nearer);
+
+    for (auto func : funcs)
+        std::cout << *find_optimum(v, func) << " " << *min_element(v.begin(), v.end(), func)
+                  << std::endl;
+
+    std::deque<int> d { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+    disp(d.begin(), d.end());
+
+    d.push_back(11);
+    d.push_front(0);
+
+    disp(d.begin(), d.end());
+
+    std::queue<int> q { d };
+    while (!q.empty()) {
+        std::cout << q.front() << " ";
+        q.pop();
+    }
+    std::cout << std::endl;
+
+    std::stack<int> s { d };
+    while (!s.empty()) {
+        std::cout << s.top() << " ";
+        s.pop();
+    }
+    std::cout << std::endl;
+
+    return 0;
 }
