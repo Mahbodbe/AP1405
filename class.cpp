@@ -822,6 +822,7 @@ int main() {
 }
 */
 
+/*
 // s18
 
 #include "util.h"
@@ -885,4 +886,13 @@ int main() {
     std::cout << std::endl;
 
     return 0;
+}
+
+*/
+
+
+//s19
+
+int main() {
+    
 }
