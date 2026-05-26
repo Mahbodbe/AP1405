@@ -1,6 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include <cmath>
 #include <deque>
 #include <iostream>
 #include <vector>
@@ -111,5 +112,15 @@ template <typename Iter> void disp(Iter begin, Iter end) {
 //         std::cout << *iter << " ";
 //     std::cout << std::endl;
 // }
+
+struct Point {
+    double X, Y;
+    double mag() const {
+        return std::sqrt(X * X + Y * Y);
+    }
+    // bool operator<(const Point &p) const {
+    //     return mag() < p.mag();
+    // }
+};
 
 #endif

@@ -890,9 +890,146 @@ int main() {
 
 */
 
+/*
 
-//s19
+// s19
+
+#include "util.h"
+#include <functional>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 int main() {
-    
+    double X { 3.2 };
+    auto nearer { [&X](const auto &a, const auto &b) {
+        return std::abs(a - X) < std::abs(b - X);
+    } };
+    std::deque<int> d { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    std::deque<int> d2 { 1, 2, 3, 4, 5, 6, 7, 8, 8, 7, 8, 9, 10 };
+
+    disp(d.begin(), d.end());
+
+    d.push_back(11);
+    d.push_front(0);
+
+    disp(d.begin(), d.end());
+
+    std::queue<int> q { d };
+    while (!q.empty()) {
+        std::cout << q.front() << " ";
+        q.pop();
+    }
+    std::cout << std::endl;
+
+    std::stack<int> s { d };
+    while (!s.empty()) {
+        std::cout << s.top() << " ";
+        s.pop();
+    }
+    std::cout << std::endl;
+
+    // std::priority_queue<int> p {};
+    // p.push(1);
+    // p.push(2);
+    // p.push(3);
+    // p.push(-1);
+    // p.push(-2);
+    // p.push(100);
+
+    // while (!p.empty())
+    // {
+    //     std::cout << p.top() << " ";
+    //     p.pop();
+    // }
+    // std::cout << std::endl;
+    // std::priority_queue<int, std::vector<int>, std::less<>> p {};
+    // std::priority_queue<int, std::vector<int>, std::greater<>> p {};
+    // std::priority_queue<int, std::vector<int>, Nearer<int>> p { Nearer<int> { X } };
+    std::priority_queue<int, std::vector<int>, decltype(nearer)> p { nearer };
+    p.push(1);
+    p.push(2);
+    p.push(3);
+    p.push(-1);
+    p.push(-2);
+    p.push(100);
+
+    while (!p.empty()) {
+        std::cout << p.top() << " ";
+        p.pop();
+    }
+    std::cout << std::endl;
+
+    double x1 { 1 }, y1 { 1 };
+    // auto pq_less { [](const Point &a, const Point &b) { return a.mag() < b.mag(); } };
+    auto pq_less { [&x1, &y1](const Point &a, const Point &b) {
+        return (a.X - x1) * (a.X - x1) + (a.Y - y1) * (a.Y - y1) >
+               (b.X - x1) * (b.X - x1) + (b.Y - y1) * (b.Y - y1);
+    } };
+    // std::priority_queue<Point, std::vector<Point>,  decltype(pq_less)> pq {pq_less};
+    std::priority_queue<Point, std::vector<Point>, std::function<bool(Point, Point)>> pq {
+        pq_less
+    };
+    pq.push(Point { 1, 2 });
+    pq.push(Point { 2, 3 });
+    pq.push(Point { 3, 2 });
+    pq.push(Point { -3, -2 });
+    pq.push(Point { 0, 0 });
+    pq.push(Point { 4, 4 });
+
+    while (!pq.empty()) {
+        std::cout << pq.top().X << ", " << pq.top().Y << std::endl;
+        pq.pop();
+    }
+
+    std::set<int, std::less<>> my_set { d2.begin(), d2.end() };
+    disp(my_set.begin(), my_set.end());
+
+    std::set<int, std::greater<>> my_set1 { d2.begin(), d2.end() };
+    disp(my_set1.begin(), my_set1.end());
+
+    std::unordered_set<int> my_set2 { d2.begin(), d2.end() };
+    disp(my_set2.begin(), my_set2.end());
+
+    std::map<std::string, long long> students {};
+    students["ldhflkasdhf"] = 916373;
+    students["slkdfhslkdhf"] = 9125878;
+    students["sldfhakjf"] = 7552272;
+    students["ewporuwieur"] = 1768767;
+    for (const auto &[name, num] : students)
+        std::cout << name << ": " << num << std::endl;
+
+    std::map<std::string, long> text {};
+    text["is"] += 1;
+    for (const auto &[word, count] : text)
+        std::cout << word << ": " << count << std::endl;
+
+    auto iter { text.find("is") };
+    if(iter != text.end())
+        std::cout << iter->first << " " << iter->second << std::endl;
+
+    std::vector<char> letters{'a', 'b', 'c', 'd', 'e', 'f'};
+    // std::vector<char>::iterator iter2 { letters.begin() };
+    std::vector<char>::const_iterator iter2 { letters.cbegin() };
+
+    // std::cout << *iter2 << " " << *(iter2+1) << std::endl;
+    // iter2++;
+    // *iter2 = 'x';
+    // std::cout << *iter2 << std::endl;
+    // disp(letters.begin(), letters.end());
+
+    for (auto it { letters.begin() }; it != letters.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+    disp(letters.cbegin(), letters.cend());
+    disp(letters.rbegin(), letters.rend());
+    disp(letters.crbegin(), letters.crend());
+
+    return 0;
 }
+
+*/
