@@ -81,13 +81,26 @@ template <typename T> struct Nearer {
     double X;
 };
 
-template <typename T, typename Comp>
-const T *find_optimum(const std::vector<T> &array, Comp comp) { // first class function
-    const T *opt { &array[0] };
+// template <typename T, typename Comp>
+// const T *find_optimum(const std::vector<T> &array, Comp comp) { // first class function
+//     const T *opt { &array[0] };
 
-    for (size_t i { 1 }; i < array.size(); i++)
-        if (comp(array[i], *opt))
-            opt = &array[i];
+//     for (size_t i { 1 }; i < array.size(); i++)
+//         if (comp(array[i], *opt))
+//             opt = &array[i];
+
+//     return opt;
+// }
+template <typename Iter, typename Comp>
+Iter find_optimum(const Iter start, const Iter end, Comp comp) { // first class function
+    if (start == end)
+        return start;
+
+    Iter opt { start };
+
+    for (Iter it { start + 1 }; it != end; it++)
+        if (comp(*it, *opt))
+            opt = it;
 
     return opt;
 }

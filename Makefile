@@ -1,6 +1,8 @@
 CXX = g++
-CXXFLAGS = -std=c++23 -Wall -c
-LXXFLAGS = -std=c++23 -lm
+# CXXFLAGS = -std=c++23 -Wall -c
+CXXFLAGS = -std=c++23 -Wall -O3 -c
+# LXXFLAGS = -std=c++23 -lm
+LXXFLAGS = -std=c++23 -lm -ltbb # required: sudo apt install libtbb-dev
 OBJECTS = class_app.o  #box.o vector.o vector2d.o
 TARGET = class_app
 

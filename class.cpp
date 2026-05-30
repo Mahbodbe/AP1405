@@ -1033,3 +1033,116 @@ int main() {
 }
 
 */
+
+// s20
+
+#include "util.h"
+#include <algorithm>
+#include <chrono>
+#include <deque>
+#include <functional>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <stack>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+#include <execution>
+
+
+int main() {
+    std::vector<char> letters { 'a', 'b', 'c', 'd', 'e', 'f' };
+    std::vector<char>::const_iterator iter2 { letters.cbegin() };
+
+    for (auto it { letters.begin() }; it != letters.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+    disp(letters.cbegin(), letters.cend());
+    disp(letters.rbegin(), letters.rend());
+    disp(letters.crbegin(), letters.crend());
+    // letters.insert(letters.cbegin(), {'x', 'x', 'x'});
+    letters.insert(cbegin(letters), { 'x', 'x', 'x' });
+    disp(letters.rbegin(), letters.rend());
+    disp(letters.cbegin(), letters.cend());
+    letters.erase(cbegin(letters), cbegin(letters) + 3);
+    disp(letters.rbegin(), letters.rend());
+    disp(letters.cbegin(), letters.cend());
+
+    double X { 3.2 };
+    std::vector<long> v { 1, 2, 3, 4, 5, 6 };
+
+    std::vector<std::function<bool(long, long)>> funcs;
+
+    funcs.push_back(larger);
+    funcs.push_back(smaller<long>);
+    funcs.push_back(Less<long> {});
+    funcs.push_back(Nearer<long> { X });
+    funcs.push_back(std::less<> {});
+
+    for (auto func : funcs)
+        std::cout << *find_optimum(v.cbegin(), v.cend(), func) << " "
+                  << *min_element(v.begin(), v.end(), func) << std::endl;
+
+    auto [a, b] = std::minmax_element(v.cbegin(), v.cend());
+    std::cout << *a << " " << *b << std::endl;
+    std::cout << a - v.cbegin() << " " << b - v.cbegin() << std::endl;
+
+    std::cout << std::find(v.cbegin(), v.cend(), 2) - v.cbegin() << std::endl;
+    std::cout << std::find(v.cbegin(), v.cend(), 9) - v.cbegin() << std::endl;
+
+    auto it { std::find(v.cbegin(), v.cend(), 9) };
+    if (it != v.cend())
+        std::cout << it - v.cbegin() << std::endl;
+
+    std::cout << it - v.cbegin() << std::endl;
+
+    std::cout << *std::find_if(v.cbegin(), v.cend(), [](const int &a) { return a > 4; })
+              << std::endl;
+
+    std::cout << *std::find_if(v.cbegin(), v.cend(), [](const int &a) { return a % 4 == 0; })
+              << std::endl;
+
+    std::deque<int> d { 1, 2, 3, 4, 5, 6, 7, 8, 8, 7, 8, 9, 10 };
+
+    std::vector<int> v2(d.size());
+    auto it2 =
+        std::copy_if(d.cbegin(), d.cend(), v2.begin(), [](const int &a) { return a % 2 == 0; });
+
+    v2.erase(it2, end(v2));
+
+    disp(d.begin(), d.end());
+    disp(v2.begin(), v2.end());
+
+    auto it3 = std::remove_if(d.begin(), d.end(), [](const int &a) { return a % 2 == 0; });
+    d.erase(it3, end(d));
+    disp(d.begin(), d.end());
+
+    std::deque<long> d3(10000000);
+    std::default_random_engine generator(std::random_device {}());
+    std::uniform_int_distribution<long> dist { -10000000000, 10000000000 };
+    // std::cout << dist(generator) << std::endl;
+
+    std::generate(d3.begin(), d3.end(), [&dist, &generator]() { return dist(generator); });
+    disp(d3.begin(), d3.begin() + 10);
+
+    // auto start { std::chrono::high_resolution_clock::now() };
+    // std::sort(d3.begin(), d3.end());
+    // auto end { std::chrono::high_resolution_clock::now() };
+    // std::cout << "Took: "
+    //           << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms"
+    //           << std::endl;
+    // disp(d3.begin(), d3.begin() + 10);
+    // disp(d3.end() - 10, d3.end());
+    auto start { std::chrono::high_resolution_clock::now() };
+    std::sort(d3.begin(), d3.end(), std::less<> {});
+    auto end { std::chrono::high_resolution_clock::now() };
+    std::cout << "Took: "
+              << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms"
+              << std::endl;
+    disp(d3.begin(), d3.begin() + 10);
+    disp(d3.end() - 10, d3.end());
+
+    return 0;
+}
