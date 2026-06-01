@@ -1034,12 +1034,15 @@ int main() {
 
 */
 
+/*
+
 // s20
 
 #include "util.h"
 #include <algorithm>
 #include <chrono>
 #include <deque>
+#include <execution>
 #include <functional>
 #include <map>
 #include <queue>
@@ -1049,7 +1052,7 @@ int main() {
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-#include <execution>
+
 
 
 int main() {
@@ -1131,7 +1134,8 @@ int main() {
     // std::sort(d3.begin(), d3.end());
     // auto end { std::chrono::high_resolution_clock::now() };
     // std::cout << "Took: "
-    //           << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms"
+    //           << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() <<
+"ms"
     //           << std::endl;
     // disp(d3.begin(), d3.begin() + 10);
     // disp(d3.end() - 10, d3.end());
@@ -1146,3 +1150,5 @@ int main() {
 
     return 0;
 }
+
+*/
