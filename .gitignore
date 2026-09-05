@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.py[cod]
+# C++ build
+*.o
+*.out
+*.exe
+# IDE
+.vscode/
+.idea/
